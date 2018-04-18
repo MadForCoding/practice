@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+hello() {
+	echo "inner $1"
+}
+
+hello mmm

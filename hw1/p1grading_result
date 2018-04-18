@@ -1,0 +1,130 @@
+[0;1;35;95m┏┓[0m [0;1;31;91m┏[0;1;33;93m━╸[0;1;32;92m┏━[0;1;36;96m╸╻[0;1;34;94m┏┓[0;1;35;95m╻┏[0;1;31;91m┓╻[0;1;33;93m╻┏[0;1;32;92m┓╻[0;1;36;96m┏━[0;1;34;94m╸[0m   [0;1;31;91m┏┳[0;1;33;93m┓┏[0;1;32;92m━┓[0;1;36;96m╺┳[0;1;34;94m╸┏[0;1;35;95m━┓[0;1;31;91m╻╻[0m [0;1;33;93m╻[0m   [0;1;36;96m╺[0;1;34;94m┳╸[0;1;35;95m┏━[0;1;31;91m╸┏[0;1;33;93m━┓[0;1;32;92m╺┳[0;1;36;96m╸[0m
+[0;1;31;91m┣┻[0;1;33;93m┓┣[0;1;32;92m╸[0m [0;1;36;96m┃╺[0;1;34;94m┓┃[0;1;35;95m┃┗[0;1;31;91m┫┃[0;1;33;93m┗┫[0;1;32;92m┃┃[0;1;36;96m┗┫[0;1;34;94m┃╺[0;1;35;95m┓[0m   [0;1;33;93m┃┃[0;1;32;92m┃┣[0;1;36;96m━┫[0m [0;1;34;94m┃[0m [0;1;35;95m┣[0;1;31;91m┳┛[0;1;33;93m┃┏[0;1;32;92m╋┛[0m    [0;1;35;95m┃[0m [0;1;31;91m┣╸[0m [0;1;33;93m┗[0;1;32;92m━┓[0m [0;1;36;96m┃[0m 
+[0;1;33;93m┗━[0;1;32;92m┛┗[0;1;36;96m━╸[0;1;34;94m┗━[0;1;35;95m┛╹[0;1;31;91m╹[0m [0;1;33;93m╹╹[0m [0;1;32;92m╹[0;1;36;96m╹╹[0m [0;1;34;94m╹[0;1;35;95m┗━[0;1;31;91m┛[0m   [0;1;32;92m╹[0m [0;1;36;96m╹╹[0m [0;1;34;94m╹[0m [0;1;35;95m╹[0m [0;1;31;91m╹[0;1;33;93m┗╸[0;1;32;92m╹╹[0m [0;1;36;96m╹[0m    [0;1;31;91m╹[0m [0;1;33;93m┗━[0;1;32;92m╸┗[0;1;36;96m━┛[0m [0;1;34;94m╹[0m 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+[4mUnit test 1: error messages
+[0m[0;96m# (running score = 0/0)
+[0m./p1gradingscript: line 198: : No such file or directory
+[31m	Failed: too many args to matrix dims (0/1)
+[0m./p1gradingscript: line 202: : No such file or directory
+[31m	Failed: no args to matrix add (0/1)
+[0m./p1gradingscript: line 206: : No such file or directory
+./p1gradingscript: line 208: : No such file or directory
+[31m	Failed: multiplying incompatible matrices (0/5)
+[0m./p1gradingscript: line 212: : No such file or directory
+./p1gradingscript: line 213: : No such file or directory
+[31m	Failed: adding incompatible matrices (0/4)
+[0mchmod: : No such file or directory
+./p1gradingscript: line 218: : No such file or directory
+[31m	Failed: tranpose unreadable file (0/2)
+[0mchmod: : No such file or directory
+./p1gradingscript: line 223: : No such file or directory
+[31m	Failed: get dims of nonexistent file (0/1)
+[0m./p1gradingscript: line 227: : No such file or directory
+[31m	Failed: matrix badcommand (0/1)
+[0m[4mUnit test 2: matrix dims tests
+[0m[0;96m# (running score = 0/15)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "53 77") (0/3)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "89 51") (0/3)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "90 74") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "86 88") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "62 94") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "77 92") (0/3)
+[0m[4mUnit test 3: matrix transpose hardcoded test
+[0m[0;96m# (running score = 0/33)
+[0m./p1gradingscript: line 299: : No such file or directory
+./p1gradingscript: line 300: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+./matrix: line 75: $args2: ambiguous redirect
+[0;1;35;95m┏┓[0m [0;1;31;91m┏[0;1;33;93m━╸[0;1;32;92m┏━[0;1;36;96m╸╻[0;1;34;94m┏┓[0;1;35;95m╻┏[0;1;31;91m┓╻[0;1;33;93m╻┏[0;1;32;92m┓╻[0;1;36;96m┏━[0;1;34;94m╸[0m   [0;1;31;91m┏┳[0;1;33;93m┓┏[0;1;32;92m━┓[0;1;36;96m╺┳[0;1;34;94m╸┏[0;1;35;95m━┓[0;1;31;91m╻╻[0m [0;1;33;93m╻[0m   [0;1;36;96m╺[0;1;34;94m┳╸[0;1;35;95m┏━[0;1;31;91m╸┏[0;1;33;93m━┓[0;1;32;92m╺┳[0;1;36;96m╸[0m
+[0;1;31;91m┣┻[0;1;33;93m┓┣[0;1;32;92m╸[0m [0;1;36;96m┃╺[0;1;34;94m┓┃[0;1;35;95m┃┗[0;1;31;91m┫┃[0;1;33;93m┗┫[0;1;32;92m┃┃[0;1;36;96m┗┫[0;1;34;94m┃╺[0;1;35;95m┓[0m   [0;1;33;93m┃┃[0;1;32;92m┃┣[0;1;36;96m━┫[0m [0;1;34;94m┃[0m [0;1;35;95m┣[0;1;31;91m┳┛[0;1;33;93m┃┏[0;1;32;92m╋┛[0m    [0;1;35;95m┃[0m [0;1;31;91m┣╸[0m [0;1;33;93m┗[0;1;32;92m━┓[0m [0;1;36;96m┃[0m 
+[0;1;33;93m┗━[0;1;32;92m┛┗[0;1;36;96m━╸[0;1;34;94m┗━[0;1;35;95m┛╹[0;1;31;91m╹[0m [0;1;33;93m╹╹[0m [0;1;32;92m╹[0;1;36;96m╹╹[0m [0;1;34;94m╹[0;1;35;95m┗━[0;1;31;91m┛[0m   [0;1;32;92m╹[0m [0;1;36;96m╹╹[0m [0;1;34;94m╹[0m [0;1;35;95m╹[0m [0;1;31;91m╹[0;1;33;93m┗╸[0;1;32;92m╹╹[0m [0;1;36;96m╹[0m    [0;1;31;91m╹[0m [0;1;33;93m┗━[0;1;32;92m╸┗[0;1;36;96m━┛[0m [0;1;34;94m╹[0m 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+mktemp: illegal option -- -
+usage: mktemp [-d] [-q] [-t prefix] [-u] template ...
+       mktemp [-d] [-q] [-u] -t prefix 
+[4mUnit test 1: error messages
+[0m[0;96m# (running score = 0/0)
+[0m./p1gradingscript: line 198: : No such file or directory
+[31m	Failed: too many args to matrix dims (0/1)
+[0m./p1gradingscript: line 202: : No such file or directory
+[31m	Failed: no args to matrix add (0/1)
+[0m./p1gradingscript: line 206: : No such file or directory
+./p1gradingscript: line 208: : No such file or directory
+[31m	Failed: multiplying incompatible matrices (0/5)
+[0m./p1gradingscript: line 212: : No such file or directory
+./p1gradingscript: line 213: : No such file or directory
+[31m	Failed: adding incompatible matrices (0/4)
+[0mchmod: : No such file or directory
+./p1gradingscript: line 218: : No such file or directory
+[31m	Failed: tranpose unreadable file (0/2)
+[0mchmod: : No such file or directory
+./p1gradingscript: line 223: : No such file or directory
+[31m	Failed: get dims of nonexistent file (0/1)
+[0m./p1gradingscript: line 227: : No such file or directory
+[31m	Failed: matrix badcommand (0/1)
+[0m[4mUnit test 2: matrix dims tests
+[0m[0;96m# (running score = 0/15)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "86 88") (0/3)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "95 68") (0/3)
+[0m./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: Stdin: ("  " == "53 59") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "88 89") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "55 76") (0/3)
+[0m./p1gradingscript: line 250: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+[31m	Failed: File input: ("  " == "98 67") (0/3)
+[0m[4mUnit test 3: matrix transpose hardcoded test
+[0m[0;96m# (running score = 0/33)
+[0m./p1gradingscript: line 299: : No such file or directory
+./p1gradingscript: line 300: : No such file or directory
+./matrix: line 13: $args2: ambiguous redirect
+./matrix: line 19: $args2: ambiguous redirect
+./matrix: line 75: $args2: ambiguous redirect

@@ -1,0 +1,476 @@
+#!/bin/bash
+#name:Wei Chen
+#ID:933293740
+#hw1
+
+fname="$1"
+args2="$2"
+args3="$3"
+
+###########################
+#dims()
+###########################
+dims() {
+if [ -f "$args3" ]
+then
+	echo "too many arguments" 1>&2
+	exit 1	
+elif ! [ -r "$args2" ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f "$args2" ]
+then
+	if ! [ -z "$args2" ]
+	then
+		echo "invalid file name" 1>&2
+		exit 1
+	fi
+fi
+
+if [ -z "args2" ] 
+then
+	cat > "$args2"
+fi	
+
+while read myLine
+do
+	let row++
+done < $args2
+read one < $args2
+for i in $one
+do
+	let col++
+done
+echo "$row  $col"
+
+}
+##################
+#for calculate args3
+#################
+dims2() {
+if [ -f "$args3" ]
+then
+	echo "too many arguments" 1>&2
+	exit 1	
+elif ! [ -r "$args2" ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f "$args2" ]
+then
+	if ! [ -z "$args2" ]
+	then
+		echo "invalid file name" 1>&2
+		exit 1
+	fi
+fi
+
+if [ -z "args2" ] 
+then
+	cat > "$args2"
+fi	
+
+while read myLine
+do
+	let row++
+done < $args3
+read one < $args3
+for i in $one
+do
+	let col++
+done
+echo "$row  $col"
+
+}
+##########################
+#transpose()
+##########################
+transpose() {
+if [ -f "$args3" ]
+then
+	echo "too many arguments" 1>&2
+	exit 1	
+elif ! [ -r "$args2" ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f "$args2" ]
+then
+	if ! [ -z "$args2" ]
+	then
+		echo "invalid file name" 1>&2
+		exit 1
+	fi
+fi
+
+if [ -z "args2" ] 
+then
+	cat > "$args2"
+fi	
+
+tempfile=./fortranspose
+tempfile2=./target
+tempfile3=./final
+touch $tempfile2
+
+#get the rows and cols
+d="$(dims $args2)"
+number=0
+for i in ${d}
+do
+	let array[number]=i
+	let number++
+done
+
+#transfer
+row=${array[0]}
+col=${array[1]}
+let col++
+forcol=1
+while test $forcol -lt $col
+do
+	cut -f $forcol $args2 > $tempfile
+	cat $tempfile | tr '\n' '\t' >> $tempfile2
+	echo >> "$tempfile2"
+	let forcol++
+	
+done
+cat $tempfile2 > $args2
+cat $args2
+
+rm $tempfile2
+rm $tempfile
+}
+
+#############################
+#mean()
+#############################
+mean() {
+if [ -f "$args3" ]
+then
+	echo "too many arguments" 1>&2
+	exit 1	
+elif ! [ -r "$args2" ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f "$args2" ]
+then
+	if ! [ -z "$args2" ]
+	then
+		echo "invalid file name" 1>&2
+		exit 1
+	fi
+fi
+
+if [ -z "args2" ] 
+then
+	cat > "$args2"
+fi	
+
+temp="./tempmean"
+touch $temp
+final="./finalmean"
+touch $final
+d="$(dims $args2)"
+number=0
+for i in $d
+do
+	array[number]=$i
+	let number++
+done
+row=${array[0]}
+col=${array[1]}
+let col++
+countcol=1
+countrow=1
+while test $countcol -lt $col
+do 
+	total=0
+	average=0
+	cut -f $countcol $args2 > $temp
+	while read current
+	do
+		(( total= total + $current ))
+	done < $temp
+	(( average= total / $row ))
+	echo "$average" | tr '\n' '\t' >> $final
+	let countcol++
+done
+echo >> $final
+cat "$final"
+rm $temp
+rm $final
+}
+
+####################################
+#add()
+####################################
+add(){
+	if [ $# -ne 2 ]
+	then
+		echo "incorrect number of arguments" 1>&2
+		exit 1
+	elif ! [ -r $1 ]
+	then
+		echo "unreadable file" 1>&2
+		exit 1
+	elif ! [ -r $2 ]
+	then
+		echo "unreadable file" 1>&2
+		exit 1
+	elif ! [ -f $1 ]
+	then
+		echo "1st file name incorrect" 1>&2
+		exit 1
+	elif ! [ -f $2 ]
+	then
+		echo "2st file name incorrect" 1>&2
+		exit 1
+	fi
+
+d1="$(dims $args2)"
+d2="$(dims2 $args3)"
+#get the first one's row and col
+number1=0
+for i in $d1
+do
+	array1[number1]=$i
+	let number1++
+done
+row1=${array1[0]}
+col1=${array1[1]}
+#get the second one's row and col
+number2=0
+for j in $d2
+do
+	array2[number2]=$j
+	let number2++
+done
+row2=${array2[0]}
+col2=${array2[1]}
+
+#for add
+temp="./tempfile1"
+touch $temp
+temp2="./tempfile2"
+touch $temp2
+final="./final"
+touch $final
+
+if [ $row1 -eq $row2 ] && [ $col1 -eq $col2 ]
+then
+	calrow=$row1
+	let calrow++
+	index=1
+	calcol=$col1
+	let calcol++
+	indexcol=1
+	while test $index -lt $calrow
+	do
+		sed -n "${index}p" $args2 > $temp
+		sed -n "${index}p" $args3 >> $temp
+		while test $indexcol -lt $calcol
+		do
+			cut -f $indexcol $temp > $temp2
+			number1="$(sed -n '1p' $temp2)"
+			number2="$(sed -n '2p' $temp2)"
+			(( sum=number1 + number2 ))
+#echo "$number1 and $number2"
+			echo "$sum" | tr '\n' '\t' >> $final
+			let indexcol++
+		done
+		indexcol=1
+		echo >> $final
+		let index++
+	done
+	
+else
+		echo "dimensions is wrong" 1>&2
+fi
+cat "$final"
+rm $temp
+rm $temp2
+rm $final
+}
+
+###############################
+#multiply()
+###############################
+multiply(){
+	if [ $# -ne 2 ]
+	then
+		echo "incorrect number of arguments" 1>&2
+		exit 1
+	elif ! [ -r $1 ]
+	then
+		echo "unreadable file" 1>&2
+		exit 1
+	elif ! [ -r $2 ]
+	then
+		echo "unreadable file" 1>&2
+		exit 1
+	elif ! [ -f $1 ]
+	then
+		echo "1st file name incorrect" 1>&2
+		exit 1
+	elif ! [ -f $2 ]
+	then
+		echo "2st file name incorrect" 1>&2
+		exit 1
+	fi
+
+d1="$(dims $args2)"
+d2="$(dims2 $args3)"
+#get the first one's row and col
+number1=0
+for i in $d1
+do
+	array1[number1]=$i
+	let number1++
+done
+row1=${array1[0]}
+col1=${array1[1]}
+#get the second one's row and col
+number2=0
+for j in $d2
+do
+	array2[number2]=$j
+	let number2++
+done
+#calculate multiply
+row2=${array2[0]}
+col2=${array2[1]}
+mcol2=$col2
+let mcol2++
+countcol1=1
+mrow2=$row2
+let mrow2++
+countrow2=1
+temp="./tempfile"
+temp1="./tempfile1"
+touch $temp1
+temp2="./tempfile2"
+temp3="./tempfile3"
+touch $temp2
+final="./finalfile"
+touch $final
+if [ $col1 -eq $row2 ]
+then
+	while read current
+	do
+		touch $temp
+		touch $temp3
+		countcol2=1
+		while test $countcol2 -lt $mcol2
+		do
+			innerrow=1
+			sum=0
+			for x in $current
+			do
+				echo $x >> $temp
+			done
+			cat $temp | tr '\n' '\t' > $temp1
+			echo >> $temp1
+			cut -f $countcol2 $args3 | tr '\n' '\t' >> $temp1
+			while test $innerrow -lt $mrow2
+			do
+				cut -f $innerrow $temp1 > $temp2
+				number1="$(sed -n '1p' $temp2)"
+				number2="$(sed -n '2p' $temp2)"
+				let sum+=number1*number2
+				let innerrow++
+			done
+			echo $sum>> $temp3
+			let countcol2++
+		done
+		cat $temp3 | tr '\n' '\t' >>$final
+		echo >> $final
+		rm $temp
+		rm $temp3
+	done < $args2
+
+	echo >> $final
+	cat $final
+
+	rm $temp1
+	rm $temp2
+	rm $final
+else
+	echo "the dimensions is wrong" 1>&2
+	exit 1
+fi
+}
+
+############################
+#errhandle():for single args
+############################
+errhandle(){
+if [ -f "$2" ]
+then
+	echo "too many arguments" 1>&2
+	exit 1	
+elif ! [ -r $1 ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f "$1" ]
+then
+	if ! [ -z "$1" ]
+	then
+		echo "invalid file name" 1>&2
+		exit 1
+	fi
+fi
+}
+#############################
+#errdouble():for double args
+#############################
+errdouble() {
+if [ $# -ne 2 ]
+then
+	echo "incorrect number of arguments" 1>&2
+	exit 1
+elif ! [ -r $1 ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -r $2 ]
+then
+	echo "unreadable file" 1>&2
+	exit 1
+elif ! [ -f $1 ]
+then
+	echo "1st file name incorrect" 1>&2
+	exit 1
+elif ! [ -f $2 ]
+then
+	echo "2st file name incorrect" 1>&2
+	exit 1
+fi
+}
+
+##############################
+#getSource()
+##############################
+getSource() {
+	echo "####$1"
+if [ -z "$1" ] 
+then
+	cat > "$args2"
+else
+	cat $1 > "$args2"
+fi	
+}
+#main
+if [ $1 != "dims" ] && [ $1 != "transpose" ] && [ $1 != "mean" ] &&
+[ $1 != "add" ] && [ $1 != "multiply" ]
+then
+	echo "bad command" 1>&2
+	exit 1
+else
+	$1 "${@:2}"
+fi
+
+

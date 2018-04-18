@@ -1,0 +1,6 @@
+#!/bin/bash
+
+countcol2=1
+echo "${countcol2}p"
+number=$(sed -n ${countcol2}p m10)
+echo $number

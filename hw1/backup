@@ -1,0 +1,283 @@
+#!/bin/bash
+#name:Wei Chen
+#ID:933293740
+#hw1
+
+fname="$1"
+args2="$2"
+args3="$3"
+
+###########################
+#dims()
+###########################
+dims() {
+
+while read myLine
+do
+	let row++
+done < $args2
+read one < $args2
+for i in $one
+do
+	let col++
+done
+echo "$row  $col"
+
+}
+##################
+#for calculate args3
+#################
+dims2() {
+
+while read myLine
+do
+	let row++
+done < $args3
+read one < $args3
+for i in $one
+do
+	let col++
+done
+echo "$row  $col"
+
+}
+##########################
+#transpose()
+##########################
+transpose() {
+tempfile=./fortranspose
+tempfile2=./target
+tempfile3=./final
+touch $tempfile2
+
+#get the rows and cols
+d="$(dims $args2)"
+number=0
+for i in ${d}
+do
+	let array[number]=i
+	let number++
+done
+
+#transfer
+row=${array[0]}
+col=${array[1]}
+let col++
+forcol=1
+while test $forcol -lt $col
+do
+	cut -f $forcol $args2 > $tempfile
+	cat $tempfile | tr '\n' '\t' >> $tempfile2
+	echo >> "$tempfile2"
+	let forcol++
+	
+done
+cat $tempfile2 > $args2
+cat $args2
+
+rm $tempfile2
+rm $tempfile
+}
+
+#############################
+#mean()
+#############################
+mean() {
+temp="./tempmean"
+touch $temp
+final="./finalmean"
+touch $final
+d="$(dims $args2)"
+number=0
+for i in $d
+do
+	array[number]=$i
+	let number++
+done
+row=${array[0]}
+col=${array[1]}
+let col++
+countcol=1
+countrow=1
+while test $countcol -lt $col
+do 
+	total=0
+	average=0
+	cut -f $countcol $args2 > $temp
+	while read current
+	do
+		(( total= total + $current ))
+	done < $temp
+	(( average= total / $row ))
+	echo "$average" | tr '\n' '\t' >> $final
+	let countcol++
+done
+echo >> $final
+cat "$final"
+rm $temp
+rm $final
+}
+
+####################################
+#add()
+####################################
+add(){
+d1="$(dims $args2)"
+d2="$(dims2 $args3)"
+#get the first one's row and col
+number1=0
+for i in $d1
+do
+	array1[number1]=$i
+	let number1++
+done
+row1=${array1[0]}
+col1=${array1[1]}
+#get the second one's row and col
+number2=0
+for j in $d2
+do
+	array2[number2]=$j
+	let number2++
+done
+row2=${array2[0]}
+col2=${array2[1]}
+
+#for add
+temp="./tempfile1"
+touch $temp
+temp2="./tempfile2"
+touch $temp2
+final="./final"
+touch $final
+
+if [ $row1 -eq $row2 ] && [ $col1 -eq $col2 ]
+then
+	calrow=$row1
+	let calrow++
+	index=1
+	calcol=$col1
+	let calcol++
+	indexcol=1
+	while test $index -lt $calrow
+	do
+		sed -n "${index}p" $args2 > $temp
+		sed -n "${index}p" $args3 >> $temp
+		while test $indexcol -lt $calcol
+		do
+			cut -f $indexcol $temp > $temp2
+			number1="$(sed -n '1p' $temp2)"
+			number2="$(sed -n '2p' $temp2)"
+			(( sum=number1 + number2 ))
+#echo "$number1 and $number2"
+			echo "$sum" | tr '\n' '\t' >> $final
+			let indexcol++
+		done
+		indexcol=1
+		echo >> $final
+		let index++
+	done
+	
+else
+		echo "emmmm"
+fi
+cat "$final"
+rm $temp
+rm $temp2
+rm $final
+}
+
+###############################
+#multiply()
+###############################
+multiply(){
+d1="$(dims $args2)"
+d2="$(dims2 $args3)"
+#get the first one's row and col
+number1=0
+for i in $d1
+do
+	array1[number1]=$i
+	let number1++
+done
+row1=${array1[0]}
+col1=${array1[1]}
+#get the second one's row and col
+number2=0
+for j in $d2
+do
+	array2[number2]=$j
+	let number2++
+done
+#calculate multiply
+row2=${array2[0]}
+col2=${array2[1]}
+mcol2=$col2
+let mcol2++
+countcol2=1
+mrow2=$row2
+let mrow2++
+countrow2=1
+temp="./tempfile1"
+touch $temp
+temp2="./tempfile2"
+touch $temp2
+final="./finalfile"
+touch $final
+if [ $col1 -eq $row2 ]
+then
+	while read current
+	do
+ 		for currentnum in $current
+		do
+			total=0
+			while test $countcol2 -lt $mcol2
+			do
+				cut -f $countcol2 $args3 > $temp
+				while test $countrow2 -lt $mrow2
+				do
+					number=$(sed -n ${countrow2}p $temp)
+					echo "num is $number"
+					(( total=total + $number * $currentnum ))
+					echo "total is $total"
+					let countrow2++
+				done
+				echo "$total" >> $temp2
+				let countcol2++
+			done
+			cat $temp2 | tr '\n' '\t' >> $final
+		done
+		echo >> $final
+	done < $args2
+	echo >> $final
+	cat $final
+
+	rm $temp
+	rm $temp2
+	rm $final
+else
+	echo "fail"
+fi
+}
+
+
+
+#main
+if test $1 == "dims"
+then
+	dims
+elif test $1 == "transpose"
+then
+	transpose
+elif test $1 == "mean"
+then
+	mean
+elif test $1 == "add"
+then
+	add
+elif test $1 == "multiply"
+then 
+	multiply
+else
+	err
+fi
